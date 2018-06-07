@@ -32,6 +32,7 @@ function onYouTubeIframeAPIReady() {
     width: '100%',
     videoId: 'VYOjWnS4cMY',
     playsinline: 1,
+    autoplay: 1,
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
@@ -41,7 +42,6 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
   event.target.setVolume(0);
-  event.target.playVideo();
 }
 
 function onPlayerStateChange(event) {
