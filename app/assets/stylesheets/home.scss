@@ -38,8 +38,9 @@ body {
   font-size: 2em;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-flow: column;
-  padding: 10px;
+  padding: 30px;
   cursor: pointer;
 
   .birthday-card {
@@ -47,10 +48,11 @@ body {
       font-family: 'Bungee Shade', cursive;
       font-size: 3em;
       font-weight: bold;
+      transform: rotate(-.5deg);
     }
     .message {
-      margin: 15px 0;
-      display: inline-block;
+      margin: 25px 0 15px 0;
+      transform: rotate(.5deg);
     }
   }
 }
