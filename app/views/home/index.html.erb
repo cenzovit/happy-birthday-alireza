@@ -28,21 +28,15 @@ var player;
 var fullscreen = false;
 
 function onYouTubeIframeAPIReady() {
-  generatePlayer(true);
-}
-
-function generatePlayer(inline){
   player = new YT.Player('player', {
     height: '100%',
     width: '100%',
     videoId: 'VYOjWnS4cMY',
     playerVars: {
-      playsinline: inline,
       mute: 1,
       autoplay: 1
     },
     events: {
-      'onReady': restartVideo,
       'onStateChange': onPlayerStateChange
     }
   });
@@ -62,9 +56,6 @@ function playFullscreen (){
   let requestFullScreen = iframe.requestFullScreen || iframe.webkitRequestFullScreen || iframe.mozRequestFullScreen;
   if (requestFullScreen) {
     requestFullScreen.bind(iframe)();
-  }
-  else {
-    generatePlayer(false);
   }
 }
 
