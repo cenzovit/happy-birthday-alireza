@@ -26,17 +26,23 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
 var fullscreen = false;
+
 function onYouTubeIframeAPIReady() {
+  generatePlayer(true);
+}
+
+function generatePlayer(inline){
   player = new YT.Player('player', {
     height: '100%',
     width: '100%',
     videoId: 'VYOjWnS4cMY',
     playerVars: {
-      //playsinline: 1,
+      playsinline: inline,
       mute: 1,
       autoplay: 1
     },
     events: {
+      'onReady': restartVideo,
       'onStateChange': onPlayerStateChange
     }
   });
@@ -58,7 +64,7 @@ function playFullscreen (){
     requestFullScreen.bind(iframe)();
   }
   else {
-    player.playVideo();
+    generatePlayer(false);
   }
 }
 
