@@ -33,17 +33,13 @@ function onYouTubeIframeAPIReady() {
     videoId: 'VYOjWnS4cMY',
     playerVars: {
       playsinline: 1,
+      mute: 1,
       autoplay: 1
     },
     events: {
-      'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
     }
   });
-}
-
-function onPlayerReady(event) {
-  event.target.setVolume(0);
 }
 
 function onPlayerStateChange(event) {
