@@ -57,9 +57,12 @@ function playFullscreen (){
   if (requestFullScreen) {
     requestFullScreen.bind(iframe)();
   }
+  else {
+    player.playVideo();
+  }
 }
 
-function changeHandler(e) {
+function changeHandler() {
   fullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement); 
 
   fullscreen ? player.unMute() : player.mute();
@@ -86,7 +89,6 @@ $('.highlight').click(function(evt){
 });
 
 $('.birthday-card-wrapper').click(function(){
-  console.log('clicked');
   playFullscreen();
 });
 </script>
