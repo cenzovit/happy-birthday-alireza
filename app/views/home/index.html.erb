@@ -62,7 +62,7 @@ function playFullscreen (){
 function changeHandler(e) {
   fullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement); 
 
-  player.setVolume(fullscreen ? 100 : 0);
+  fullscreen ? player.unMute() : player.mute();
 
   if (fullscreen){
     restartVideo();
