@@ -1,0 +1,94 @@
+<div id='player-wrapper'>
+  <div id="player"></div>
+</div>
+<div class='birthday-card-wrapper'>
+  <div class='birthday-card'>
+    <span class='title highlight'>Happy Birthday</span>
+    <br>
+    <span class='message highlight'>
+      With every action you brighten our lives; we hope this brightens yours!
+    </span>
+    <br>
+    <span class='signature highlight'>
+      Love,
+      <br>
+      Your friends & family
+    </span>
+  </div>
+</div>
+
+<script>
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+var fullscreen = false;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '100%',
+    width: '100%',
+    videoId: 'VYOjWnS4cMY',
+    playsinline: 1,
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  event.target.setVolume(0);
+  event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.ENDED && !fullscreen) {
+    event.target.playVideo();
+  }
+}
+function restartVideo() {
+  player.seekTo(0);
+  player.playVideo();
+}
+function playFullscreen (){
+  let iframe = player.getIframe();
+  let requestFullScreen = iframe.requestFullScreen || iframe.webkitRequestFullScreen || iframe.mozRequestFullScreen;
+  if (requestFullScreen) {
+    requestFullScreen.bind(iframe)();
+  }
+}
+
+function changeHandler(e) {
+  fullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement); 
+
+  player.setVolume(fullscreen ? 100 : 0);
+
+  if (fullscreen){
+    restartVideo();
+  }
+  else {
+    switch (player.getPlayerState()){
+      case YT.PlayerState.ENDED:
+        restartVideo();
+        break;
+      default:
+        player.playVideo();
+    }
+  }
+}
+document.addEventListener("fullscreenchange", changeHandler, false);
+document.addEventListener("webkitfullscreenchange", changeHandler, false);
+document.addEventListener("mozfullscreenchange", changeHandler, false);
+
+$('.highlight').click(function(evt){
+  evt.stopPropagation();
+});
+
+$('.birthday-card-wrapper').click(function(){
+  console.log('clicked');
+  playFullscreen();
+});
+</script>
