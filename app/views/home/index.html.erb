@@ -69,7 +69,7 @@ function playFullscreen (){
   let requestFullScreen = iframe.requestFullScreen || iframe.webkitRequestFullScreen || iframe.mozRequestFullScreen;
   requestFullScreen ? 
     requestFullScreen.bind(iframe)() :
-    player.restartVideo();
+    restartVideo();
 }
 
 function changeHandler() {
