@@ -59,6 +59,9 @@ function restartVideo() {
 function restartToDance() {
   player.seekTo(582);
   player.playVideo();
+  if (repeat){
+    clearTimeout(repeat);
+  }
   repeat = setTimeout(restartToDance, 30000);
 }
 function playFullscreen (){
