@@ -26,6 +26,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
 var fullscreen = false;
+var repeat = null;
 
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
@@ -37,6 +38,7 @@ function onYouTubeIframeAPIReady() {
       autoplay: 1
     },
     events: {
+      'onReady': restartToDance,
       'onStateChange': onPlayerStateChange
     }
   });
@@ -44,12 +46,20 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerStateChange(event) {
   if (event.data == YT.PlayerState.ENDED && !fullscreen) {
-    event.target.playVideo();
+    restartToDance();
   }
 }
 function restartVideo() {
   player.seekTo(0);
   player.playVideo();
+  if (repeat){
+    clearTimeout(repeat);
+  }
+}
+function restartToDance() {
+  player.seekTo(582);
+  player.playVideo();
+  repeat = setTimeout(restartToDance, 30000);
 }
 function playFullscreen (){
   let iframe = player.getIframe();
@@ -62,19 +72,13 @@ function playFullscreen (){
 function changeHandler() {
   fullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement); 
 
-  fullscreen ? player.unMute() : player.mute();
-
   if (fullscreen){
     restartVideo();
+    player.unMute();
   }
   else {
-    switch (player.getPlayerState()){
-      case YT.PlayerState.ENDED:
-        restartVideo();
-        break;
-      default:
-        player.playVideo();
-    }
+    player.mute();
+    restartToDance();
   }
 }
 document.addEventListener("fullscreenchange", changeHandler, false);
